@@ -19,8 +19,24 @@ int maxProfitRecursive(vector<int>&price,int beg,int end,int year){
 	return max(first,last);	
 }
 
+// Time Complexity => O(n^3) and Space Complexity => O(n^3)
+int maxProfitMemo(vector<int>&price,int beg,int end,int year,vector<vector<vector<int>>>&dp){
+	if(beg == end)	return year*price[end];
+	else if(dp[beg][end][year] != -1)	return dp[beg][end][year];
+	int first = price[beg]*year + maxProfitMemo(price,beg+1,end,year+1,dp);
+	int last = price[end]*year + maxProfitMemo(price,beg,end-1,year+1,dp);
+	return dp[beg][end][year] = max(first,last);
+}
 
-
+// Time Complexity => O(n^2) and Space Complexity => O(n^2)
+int maxProfitOptimal(vector<int>&price,int beg,int end,int n,vector<vector<int>>&dp){
+	int year = n - abs(end-beg);
+	if(beg == end)	return year*price[beg];
+	else if(dp[beg][end] != -1)	return dp[beg][end];
+	int first = price[beg]*year + maxProfitOptimal(price,beg+1,end,n,dp);
+	int last = price[end]*year + maxProfitOptimal(price,beg,end-1,n,dp);
+	return dp[beg][end] = max(first,last);
+}
 
 int main(){
 	#ifndef wineProblem
@@ -28,5 +44,9 @@ int main(){
 	#endif
 	vector<int> price = {2,4,6,2,5};
 	cout<<maxProfitRecursive(price,0,price.size()-1,1);
+	vector<vector<vector<int>>> dp(price.size()+1,vector<vector<int>>(price.size()+1,vector<int>(price.size()+1,-1)));
+	cout<<":"<<maxProfitMemo(price,0,price.size()-1,1,dp);
+	vector<vector<int>> dpp(price.size()+1,vector<int>(price.size()+1,-1));
+	cout<<":"<<maxProfitOptimal(price,0,price.size()-1,price.size(),dpp);
 	return 0;
 }
