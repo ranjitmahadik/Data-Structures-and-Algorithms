@@ -7,7 +7,7 @@ using namespace std;
 	what is the minimum number of coins to make the change?	
 */
 
-// Time Complexity => O(2^n) and Space complexity => O(n)
+// Time Complexity => O(2^n)  
 int minCoinsRecursive(int n,vector<int>& coins,int idx){
 	if(n == 0)	return 0;
 	else if(n < 0 || idx == 0)	return INT_MAX-1;

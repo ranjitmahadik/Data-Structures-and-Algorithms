@@ -8,7 +8,7 @@ using namespace std;
 		* Decrement n by 1.
 */
 
-// Time Complexity => O(3^n) and Space Complexity = O(n)
+// Time Complexity => O(3^n)  
 int minStepsToReachOneRecursive(int n){
 	if(n == 1)	return 0;
 	int n2,n3,n1;

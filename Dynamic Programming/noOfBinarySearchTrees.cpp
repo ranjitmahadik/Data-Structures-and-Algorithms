@@ -43,8 +43,8 @@ int main(){
 		freopen("output.txt","w",stdout);
 	#endif
 	vector<int> dp(5+1,-1);
-	cout<<noOfBSTRecursive(4);
-	cout<<":"<<noOfBSTMemo(4,dp);
-	cout<<":"<<noOfBSTBottomUp(4);
+	cout<<noOfBSTRecursive(5);
+	cout<<":"<<noOfBSTMemo(5,dp);
+	cout<<":"<<noOfBSTBottomUp(5);
 	return 0;
 }

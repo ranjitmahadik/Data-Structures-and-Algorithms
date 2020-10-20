@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// Time Complexity => O(2^n) and Space Complexity => O(n) 
+// Time Complexity => O(2^n)  
 int minPathSum(vector<vector<int>>& mat,int i,int j){
 	if(i < 0 || j < 0)	return INT_MAX;
 	else if(i == 0 && j == 0)	return mat[i][j];
