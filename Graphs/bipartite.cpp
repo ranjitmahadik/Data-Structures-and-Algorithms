@@ -12,7 +12,8 @@ bool dfs(int u,int color,int par,int* vis){
 	vis[u] = color;
 	for(int v : G[u]){
 		if(vis[v] == 0){
-			return dfs(v,3-color,u,vis);
+			bool ans = dfs(v,3-color,u,vis);
+			if(!ans)	return ans;
 		}else if(v != par && color == vis[v]){
 			return false;
 		}
