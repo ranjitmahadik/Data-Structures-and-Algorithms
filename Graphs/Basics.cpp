@@ -5,26 +5,13 @@ class Graph
 {
 	vector<int>* G;
 	int size;
+
 	void dfs(int curr,bool* vis){
 		printf("%d\n",curr);
 		vis[curr] = 1;
 		for(int nbr : G[curr]){
 			if(!vis[nbr]){
 				dfs(nbr,vis);
-			}
-		}
-	}
-
-	void dfs(int u,int target,string src,bool* vis){
-		if(u == target){
-			cout<<src<<endl;
-			return;
-		}
-		for(int v: G[u]){
-			if(!vis[v]){
-				vis[v] = 1;
-				dfs(v,target,src+"->"+to_string(v),vis);
-				vis[v] = 0;
 			}
 		}
 	}
@@ -65,15 +52,35 @@ public:
 			cout<<i<<" : "<<G[i].size()<<endl;
 		}
 	}
-	void dfsC(){
+
+	void singleSourceShortestPath(int src,int dest){
+		queue<pair<int,string>> q;		// int currVertex,Path
 		bool vis[size] = {0};
-		vis[0] = 1;
-		dfs(0,4,"0",vis);
+		q.push({src,to_string(src)});
+		vis[src] = 1;
+		while(!q.empty()){
+			int currNode = q.front().first;
+			string currPath = q.front().second;
+			q.pop();
+			if(currNode == dest){
+				cout<<currPath<<endl;
+				vis[currNode] = 0;
+			}
+			for(int nbr : G[currNode]){
+				if(!vis[nbr]){
+					vis[nbr] = 1;
+					q.push({nbr,currPath+"-"+to_string(nbr)});
+				}
+			}
+		}
+		return;
 	}
+	
 	~Graph(){
 		delete G;
 	}
 };
+
 
 
 
@@ -84,15 +91,14 @@ int main(int argc, char const *argv[])
 	#endif
 
 	Graph *g = new Graph(7);
-	g->addEdge(0,1);
-	g->addEdge(0,2);
-	g->addEdge(1,3);
+	g->addEdge(2,1);
 	g->addEdge(2,3);
-	g->addEdge(3,4);
-	g->addEdge(3,5);
-	g->addEdge(4,6);
-	g->addEdge(5,6);
-	// g->bfs(0);
-	g->dfsC();
+	g->addEdge(0,1);
+	g->addEdge(0,3);
+	g->addEdge(4,3);
+	g->addEdge(5,4);
+
+	g->singleSourceShortestPath(5,0);
+
 	return 0;
 }

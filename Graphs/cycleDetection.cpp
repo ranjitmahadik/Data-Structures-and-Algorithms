@@ -12,7 +12,8 @@ bool dfs1(int u,int par,bool*vis){
 	vis[u] = 1;
 	for(int v : G[u]){
 		if(!vis[v]){
-			return dfs1(v,u,vis);			
+			bool ans = dfs1(v,u,vis);
+			if(ans)	return true;
 		}else if(v != par){
 			return true;
 		}
